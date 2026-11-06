@@ -49,3 +49,9 @@ test('ida y vuelta formatTC → parseTC en todos los fps', () => {
     }
   }
 });
+
+test('framesToDigits: dígitos tecleables o null si pasa de 99 h', () => {
+  assert.strictEqual(TC.framesToDigits(1800, '29.97DF'), '00010002');
+  assert.strictEqual(TC.framesToDigits(-250, '25'), '00001000');
+  assert.strictEqual(TC.framesToDigits(10000000, '25'), null);
+});

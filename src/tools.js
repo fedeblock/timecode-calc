@@ -39,7 +39,7 @@
       update();
       onChange();
     });
-    return { input, update, node: field(label, input, live) };
+    return { input, live, update, node: field(label, input, live) };
   }
 
   function section(title, children) {
@@ -59,13 +59,13 @@
       if (!inF.input.value || !outF.input.value) { lastDur = null; return; }
       const f = fps.value;
       lastDur = TC.parseTC(outF.input.value, f) - TC.parseTC(inF.input.value, f);
-      const add = el('button', { type: 'button', textContent: 'Añadir a la cinta' });
+      const digits = TC.framesToDigits(lastDur, f);
+      const add = el('button', {
+        type: 'button', textContent: 'Añadir a la cinta', disabled: digits === null,
+        title: digits === null ? 'Una línea de la cinta admite hasta 99 h' : '',
+      });
       add.addEventListener('click', () => {
-        App.addLineFromTool({
-          op: lastDur < 0 ? '-' : '+',
-          value: digitsOnly(TC.formatTC(Math.abs(lastDur), f)),
-          fps: f,
-        });
+        App.addLineFromTool({ op: lastDur < 0 ? '-' : '+', value: digits, fps: f });
       });
       out.append(
         el('div', { className: 'tc-big', textContent: TC.formatTC(lastDur, f) }),
@@ -108,8 +108,12 @@
     let source = 'tc';
 
     const fill = (frames, except) => {
-      if (except !== 'tc') { tc.input.value = digitsOnly(TC.formatTC(Math.abs(frames), fps.value)); }
-      tc.update();
+      if (except !== 'tc') {
+        const digits = TC.framesToDigits(frames, fps.value);
+        tc.input.value = digits === null ? '' : digits;
+        if (digits === null) { tc.live.textContent = TC.formatTC(frames, fps.value); }
+        else tc.update();
+      } else tc.update();
       if (except !== 'frames') framesIn.value = String(frames);
       if (except !== 'seconds') secondsIn.value = TC.formatSeconds(TC.framesToSeconds(frames, fps.value));
     };

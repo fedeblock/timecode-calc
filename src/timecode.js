@@ -108,6 +108,13 @@
     return (x.negative && frames !== 0 ? MINUS : '') + joinFields(x.h, x.m, x.s, x.f, fps.dropFrame);
   }
 
+  /** Frames → 8 dígitos tecleables (valor absoluto), o null si pasa de 99 h. */
+  function framesToDigits(frames, fpsId) {
+    const x = framesToFields(Math.abs(frames), fpsId);
+    if (x.h > 99) return null;
+    return pad2(x.h) + pad2(x.m) + pad2(x.s) + pad2(x.f);
+  }
+
   /** Vista en vivo mientras se teclea: sin normalizar. */
   function formatDigits(digits, fpsId) {
     const fps = getFps(fpsId);
@@ -139,7 +146,7 @@
   const api = {
     FPS_IDS, FPS, signedRound,
     digitsToFields, fieldsToFrames, parseTC,
-    framesToFields, formatTC, formatDigits,
+    framesToFields, formatTC, formatDigits, framesToDigits,
     convertFrames, framesToSeconds, secondsToFrames, formatSeconds,
   };
 

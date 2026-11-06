@@ -47,6 +47,14 @@
     return { ...tape, lines: tape.lines.map((l) => (l.id === id ? { ...l, ...patch, id } : l)) };
   }
 
+  /** Edición en línea: interpreta el texto con el operador de la línea. Sin valor → cinta igual. */
+  function applyEdit(tape, id, raw) {
+    const line = tape.lines.find((l) => l.id === id);
+    if (!line) return tape;
+    const p = parseEntry(line.op + String(raw == null ? '' : raw));
+    return p ? updateLine(tape, id, { value: p.value }) : tape;
+  }
+
   function removeLine(tape, id) {
     return { ...tape, lines: tape.lines.filter((l) => l.id !== id) };
   }
@@ -85,7 +93,11 @@
         row.display = (line.op === '*' ? '× ' : '÷ ') + line.value;
         if (!Number.isFinite(factor)) row.error = 'Factor no válido';
         else if (line.op === '/' && factor === 0) row.error = 'División por cero';
-        else running = TC.signedRound(line.op === '*' ? running * factor : running / factor);
+        else {
+          const next = TC.signedRound(line.op === '*' ? running * factor : running / factor);
+          if (!Number.isFinite(next) || Math.abs(next) > Number.MAX_SAFE_INTEGER) row.error = 'Resultado fuera de rango';
+          else running = next;
+        }
         if (running === 0) running = 0; // evita -0
       }
       row.runningFrames = running;
@@ -124,7 +136,7 @@
   }
 
   const api = {
-    DEFAULT_FPS, createTape, parseEntry, addLine, updateLine, removeLine, moveLine, setTapeFps,
+    DEFAULT_FPS, createTape, parseEntry, addLine, updateLine, applyEdit, removeLine, moveLine, setTapeFps,
     computeTape, serializeTape, deserializeTape,
   };
 

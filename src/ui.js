@@ -25,10 +25,21 @@
   function save() {
     try { localStorage.setItem(STORAGE_KEY, T.serializeTape(tape)); } catch (e) { /* sin almacenamiento */ }
   }
-  function commit(next) {
+  /** focus: {id, role} del control a re-enfocar tras el re-render, o 'entry'. */
+  function commit(next, focus) {
     tape = next;
     save();
     render();
+    restoreFocus(focus);
+  }
+
+  function restoreFocus(focus) {
+    if (!focus) return;
+    if (focus === 'entry') { $('#entry').focus(); return; }
+    const target = document.querySelector('[data-id="' + CSS.escape(focus.id) + '"][data-role="' + focus.role + '"]');
+    if (target && !target.disabled) target.focus();
+    else if (target) document.querySelector('[data-id="' + CSS.escape(focus.id) + '"][data-role="value"]').focus();
+    else $('#entry').focus();
   }
 
   /** Sanea lo tecleado: operador inicial opcional + dígitos (máx. 8) o factor decimal. */
@@ -61,9 +72,10 @@
     const finish = (ok) => {
       if (done) return;
       done = true;
-      const p = ok ? T.parseEntry(line.op + sanitizeEntry(input.value)) : null;
-      if (p) commit(T.updateLine(tape, line.id, { value: p.value }));
-      else render();
+      const next = ok ? T.applyEdit(tape, line.id, input.value) : tape;
+      const focus = { id: line.id, role: 'value' };
+      if (next !== tape) commit(next, focus);
+      else { render(); restoreFocus(focus); }
     };
     input.addEventListener('input', () => {
       const clean = sanitizeEntry(line.op + input.value).slice(1);
@@ -74,6 +86,7 @@
       else if (e.key === 'Escape') finish(false);
     });
     input.addEventListener('blur', () => finish(true));
+    input.addEventListener('keydown', (e) => e.stopPropagation());
     valueEl.replaceWith(input);
     input.focus();
     input.select();
@@ -89,28 +102,40 @@
     tape.lines.forEach((line, i) => {
       const r = result.rows[i];
       const li = el('li', { className: 'row' + (r.error ? ' has-error' : '') });
-      const value = el('span', { className: 'value tc', textContent: r.display, title: 'Doble clic para editar' });
+      const value = el('span', { className: 'value tc', textContent: r.display, tabIndex: 0, title: 'Doble clic, Enter o F2 para editar' });
+      value.dataset.id = line.id;
+      value.dataset.role = 'value';
       value.addEventListener('dblclick', () => startEdit(li, line, value));
+      value.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === 'F2') { e.preventDefault(); startEdit(li, line, value); }
+      });
 
       const meta = el('div', { className: 'meta' });
       if (line.op === '+' || line.op === '-') {
         const sel = el('select', { title: 'fps de esta línea' });
         fpsOptions(sel, line.fps, true);
-        sel.addEventListener('change', () => commit(T.updateLine(tape, line.id, { fps: sel.value })));
+        sel.dataset.id = line.id;
+        sel.dataset.role = 'fps';
+        sel.addEventListener('change', () => commit(T.updateLine(tape, line.id, { fps: sel.value }), { id: line.id, role: 'fps' }));
         meta.append(sel);
       }
       if (r.conversion) meta.append(el('span', { className: 'conv tc', textContent: r.conversion }));
       if (r.error) meta.append(el('span', { className: 'err', textContent: r.error }));
 
-      const btn = (txt, title, fn, disabled) => {
+      const btn = (txt, title, fn, disabled, role) => {
         const b = el('button', { type: 'button', textContent: txt, title, disabled: !!disabled });
+        b.dataset.id = line.id;
+        b.dataset.role = role;
         b.addEventListener('click', fn);
         return b;
       };
       const actions = el('div', { className: 'actions' }, [
-        btn('↑', 'Subir', () => commit(T.moveLine(tape, line.id, -1)), i === 0),
-        btn('↓', 'Bajar', () => commit(T.moveLine(tape, line.id, 1)), i === tape.lines.length - 1),
-        btn('✕', 'Borrar', () => commit(T.removeLine(tape, line.id))),
+        btn('↑', 'Subir', () => commit(T.moveLine(tape, line.id, -1), { id: line.id, role: 'up' }), i === 0, 'up'),
+        btn('↓', 'Bajar', () => commit(T.moveLine(tape, line.id, 1), { id: line.id, role: 'down' }), i === tape.lines.length - 1, 'down'),
+        btn('✕', 'Borrar', () => {
+          const next = tape.lines[i + 1] || tape.lines[i - 1];
+          commit(T.removeLine(tape, line.id), next ? { id: next.id, role: 'remove' } : 'entry');
+        }, false, 'remove'),
       ]);
 
       li.append(el('span', { className: 'op ' + OP_CLASS[line.op], textContent: OP_SYMBOL[line.op] }), value, meta, actions);
@@ -147,7 +172,7 @@
         const p = T.parseEntry(entry.value);
         if (!p) return;
         entry.value = '';
-        commit(T.addLine(tape, p));
+        commit(T.addLine(tape, p), 'entry');
         const rows = $('#rows');
         rows.scrollTop = rows.scrollHeight;
       } else if (e.key === 'Escape') {
@@ -156,13 +181,13 @@
       }
     });
 
-    $('#tape-fps').addEventListener('change', (e) => commit(T.setTapeFps(tape, e.target.value)));
+    $('#tape-fps').addEventListener('change', (e) => { commit(T.setTapeFps(tape, e.target.value)); $('#tape-fps').focus(); });
 
     $('#copy').addEventListener('click', async () => {
       const text = T.computeTape(tape).totalTC;
       try { await navigator.clipboard.writeText(text); toast('Copiado'); } catch (e) { toast('No se pudo copiar'); }
     });
-    $('#clear').addEventListener('click', () => commit({ ...tape, lines: [] }));
+    $('#clear').addEventListener('click', () => commit({ ...tape, lines: [] }, 'entry'));
 
     render();
     entry.focus();
