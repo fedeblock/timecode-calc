@@ -109,7 +109,7 @@
           {
             title: 'Licencia y responsabilidad',
             items: [
-              'Timecode Calc © 2026 Federico Block. Software libre bajo licencia MIT: puedes usarlo, copiarlo, modificarlo y distribuirlo, manteniendo el aviso de autoría.',
+              'Timecode Calc © 2026 Federico Block. Software libre bajo licencia MIT con requisito de atribución: puedes usarlo, copiarlo, modificarlo y distribuirlo, manteniendo el aviso de autoría y mostrando «Basado en Timecode Calc de Federico Block».',
               'Se ofrece «tal cual», sin garantía de ningún tipo. El autor no se hace responsable de errores en los cálculos ni de ningún daño derivado de su uso. Verifica los resultados críticos.',
             ],
           },
@@ -217,7 +217,7 @@
           {
             title: 'License and disclaimer',
             items: [
-              'Timecode Calc © 2026 Federico Block. Free software under the MIT License: you may use, copy, modify and distribute it, keeping the copyright notice.',
+              'Timecode Calc © 2026 Federico Block. Free software under the MIT License with Attribution Requirement: you may use, copy, modify and distribute it, keeping the copyright notice and showing “Based on Timecode Calc by Federico Block”.',
               'Provided “as is”, without warranty of any kind. The author is not liable for calculation errors or any damage arising from its use. Double-check critical results.',
             ],
           },

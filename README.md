@@ -45,9 +45,14 @@ The installers are not code-signed. On macOS, the first time you open the app, r
 
 ## License
 
-MIT © 2026 Federico Block. See [LICENSE](LICENSE).
+MIT License with Attribution Requirement © 2026 Federico Block. See [LICENSE](LICENSE).
 
-You are free to use, copy, modify and distribute this software, including commercially, as long as you keep the copyright notice and credit the author.
+You are free to use, copy, modify and distribute this software, including commercially, as long as you:
+
+- keep the copyright notice and license text, and
+- give visible credit with the text **"Based on Timecode Calc by Federico Block"** in your documentation and in your About or credits screen, if you have one.
+
+Because of the attribution requirement, this is a variant of the MIT License, not the standard OSI-approved MIT License.
 
 ## Disclaimer
 
@@ -59,4 +64,4 @@ This software is provided **"as is", without warranty of any kind**. The author 
 
 Calculadora de timecode SMPTE con una cinta de sumas y restas en varios frame rates (incluido drop-frame) y un panel de herramientas. La interfaz está en español e inglés. Para usarla, abre `web/index.html`, o compila la app de escritorio con `npm install` y `npm run build`.
 
-Licencia MIT © 2026 Federico Block: uso libre, incluso comercial, manteniendo el aviso de autoría. Se ofrece «tal cual», sin garantías; el autor no se hace responsable de errores ni daños derivados de su uso.
+Licencia MIT con requisito de atribución © 2026 Federico Block: uso libre, incluso comercial, manteniendo el aviso de autoría y mostrando de forma visible «Basado en Timecode Calc de Federico Block» en la documentación y en la pantalla «Acerca de» o de créditos. Se ofrece «tal cual», sin garantías; el autor no se hace responsable de errores ni daños derivados de su uso.

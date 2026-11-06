@@ -39,8 +39,7 @@
     },
     "category": "Utility",
     "shortDescription": "Calculadora de timecode SMPTE",
-    "copyright": "© 2026 Federico Block. MIT License.",
-    "license": "MIT",
+    "copyright": "© 2026 Federico Block. MIT License with Attribution Requirement.",
     "licenseFile": "../LICENSE"
   }
 }

@@ -1,4 +1,4 @@
-MIT License
+MIT License with Attribution Requirement
 
 Copyright (c) 2026 Federico Block
 
@@ -11,6 +11,13 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+
+Attribution requirement: any product, service or distribution that includes
+the Software or a substantial portion of it, in source or binary form, must
+give visible credit to the author with the text "Based on Timecode Calc by
+Federico Block" (or an equivalent translation). The credit must appear in the
+product's user-facing documentation and, if the product has one, in its
+"About", credits or similar screen.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
