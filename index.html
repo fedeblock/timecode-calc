@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de timecode</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <div class="app">
+    <main id="tape" class="panel tape">
+      <header class="tape-head">
+        <h1>Cinta</h1>
+        <label class="fps-pick">fps de la cinta
+          <select id="tape-fps"></select>
+        </label>
+      </header>
+
+      <ol id="rows" class="rows" aria-label="Líneas de la cinta"></ol>
+
+      <div class="entry-wrap">
+        <input id="entry" class="entry" autocomplete="off" spellcheck="false" inputmode="numeric"
+               placeholder="Teclea un TC (1000 = 10 s) · + − × ÷ al inicio para la operación"
+               aria-label="Nueva línea">
+        <div id="entry-preview" class="entry-preview tc" aria-live="polite"></div>
+      </div>
+
+      <footer class="total">
+        <div class="total-label">Total</div>
+        <div id="total-tc" class="total-tc tc">00:00:00:00</div>
+        <div id="total-sub" class="total-sub tc">0 frames · 0.000 s</div>
+        <div class="total-actions">
+          <button id="copy" type="button">Copiar</button>
+          <button id="clear" type="button" class="ghost">Vaciar cinta</button>
+          <span id="toast" class="toast" role="status"></span>
+        </div>
+      </footer>
+    </main>
+
+    <aside id="tools" class="tools"></aside>
+  </div>
+
+  <script src="src/timecode.js"></script>
+  <script src="src/tape.js"></script>
+  <script src="src/ui.js"></script>
+</body>
+</html>
