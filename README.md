@@ -2,7 +2,7 @@
 
 Calculadora de timecode SMPTE: cinta de sumas/restas multi-fps (incluido drop-frame 29.97/59.94), × y ÷, duración IN/OUT, conversión de fps y TC ↔ frames ↔ segundos.
 
-En español e inglés (detecta el idioma del sistema; selector en la cabecera). Ayuda integrada con el botón `?` o `F1`.
+En español e inglés (detecta el idioma del sistema; se cambia en Preferencias: botón ⚙ o `⌘,` / `Ctrl+,`). Ayuda integrada con el botón `?` o `F1`.
 
 ## Uso
 

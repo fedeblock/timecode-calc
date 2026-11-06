@@ -43,3 +43,10 @@ test('la ayuda tiene secciones con título y contenido en ambos idiomas', () => 
     for (const s of h.sections) assert.ok(s.title && Array.isArray(s.items) && s.items.length);
   }
 });
+
+test('preferencias: título y etiqueta del idioma en ambos idiomas', () => {
+  assert.strictEqual(I18n.t('es', 'settings.title'), 'Preferencias');
+  assert.strictEqual(I18n.t('en', 'settings.title'), 'Settings');
+  assert.strictEqual(I18n.t('es', 'lang.label'), 'Idioma');
+  assert.strictEqual(I18n.t('en', 'lang.label'), 'Language');
+});

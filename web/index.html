@@ -16,8 +16,8 @@
           <label class="fps-pick"><span data-i18n="tape.fps">fps de la cinta</span>
             <select id="tape-fps"></select>
           </label>
-          <select id="lang" data-i18n-aria-label="lang.label" data-i18n-title="lang.label"></select>
-          <button id="help-open" type="button" class="help-btn" data-i18n-title="help.button" data-i18n-aria-label="help.button">?</button>
+          <button id="settings-open" type="button" class="icon-btn" data-i18n-title="settings.button" data-i18n-aria-label="settings.button">⚙</button>
+          <button id="help-open" type="button" class="icon-btn help-btn" data-i18n-title="help.button" data-i18n-aria-label="help.button">?</button>
         </div>
       </header>
 
@@ -45,7 +45,19 @@
     <aside id="tools" class="tools"></aside>
   </div>
 
-  <dialog id="help" class="help" aria-labelledby="help-title">
+  <dialog id="settings" class="modal settings" aria-labelledby="settings-title">
+    <header class="help-head">
+      <h2 id="settings-title" data-i18n="settings.title">Preferencias</h2>
+      <button id="settings-close" type="button" class="ghost" data-i18n="settings.close">Cerrar</button>
+    </header>
+    <div class="settings-body">
+      <label class="pref"><span data-i18n="lang.label">Idioma</span>
+        <select id="lang"></select>
+      </label>
+    </div>
+  </dialog>
+
+  <dialog id="help" class="modal help" aria-labelledby="help-title">
     <header class="help-head">
       <h2 id="help-title" data-i18n="help.title">Ayuda</h2>
       <button id="help-close" type="button" class="ghost" data-i18n="help.close">Cerrar</button>
