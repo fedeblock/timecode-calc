@@ -98,3 +98,20 @@ test('serializar y deserializar; texto inválido da la cinta por defecto', () =>
 test('total en segundos con 3 decimales', () => {
   assert.strictEqual(Tape.computeTape(build('25', ['+32415'])).totalSeconds, '204.600');
 });
+
+test('editar en línea conserva el decimal de un factor', () => {
+  let t = build('25', ['+1000', '*1.5']);
+  const id = t.lines[1].id;
+  t = Tape.applyEdit(t, id, '0.5');
+  assert.strictEqual(t.lines[1].value, '0.5');
+  t = Tape.applyEdit(t, t.lines[0].id, '00:00:20:00');
+  assert.strictEqual(t.lines[0].value, '00002000');
+  assert.strictEqual(Tape.applyEdit(t, id, ''), t);
+});
+
+test('desbordamiento en × marca error y nunca da NaN', () => {
+  const r = Tape.computeTape(build('25', ['+1', { op: '*', value: '1e300' }, { op: '*', value: '1e300' }, '*0', '+1000']));
+  assert.strictEqual(r.rows[1].error, 'Resultado fuera de rango');
+  assert.ok(Number.isFinite(r.totalFrames));
+  assert.strictEqual(r.totalFrames, 250);
+});
