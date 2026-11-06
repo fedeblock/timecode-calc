@@ -5,6 +5,7 @@
   const TC = globalThis.Timecode;
   const App = globalThis.App;
   const root = document.querySelector('#tools');
+  const t = App.t;
 
   const el = (tag, props = {}, children = []) => {
     const n = document.createElement(tag);
@@ -49,7 +50,7 @@
   const defaultFps = App.getTape().fps;
 
   // 1. Duración IN/OUT
-  (function durationTool() {
+  function durationTool() {
     const fps = fpsSelect(defaultFps);
     const out = el('div', { className: 'result' });
     let lastDur = null;
@@ -61,26 +62,26 @@
       lastDur = TC.parseTC(outF.input.value, f) - TC.parseTC(inF.input.value, f);
       const digits = TC.framesToDigits(lastDur, f);
       const add = el('button', {
-        type: 'button', textContent: 'Añadir a la cinta', disabled: digits === null,
-        title: digits === null ? 'Una línea de la cinta admite hasta 99 h' : '',
+        type: 'button', textContent: t('tools.addToTape'), disabled: digits === null,
+        title: digits === null ? t('tools.tooLong') : '',
       });
       add.addEventListener('click', () => {
         App.addLineFromTool({ op: lastDur < 0 ? '-' : '+', value: digits, fps: f });
       });
       out.append(
         el('div', { className: 'tc-big', textContent: TC.formatTC(lastDur, f) }),
-        el('div', { className: 'sub', textContent: lastDur + ' frames · ' + TC.formatSeconds(TC.framesToSeconds(lastDur, f)) + ' s' }),
+        el('div', { className: 'sub', textContent: lastDur + ' ' + t('tape.frames') + ' · ' + TC.formatSeconds(TC.framesToSeconds(lastDur, f)) + ' s' }),
         add,
       );
     };
     const inF = tcField('IN', () => fps.value, recalc);
     const outF = tcField('OUT', () => fps.value, recalc);
     fps.addEventListener('change', recalc);
-    root.append(section('Duración IN/OUT', [field('fps', fps), inF.node, outF.node, out]));
-  })();
+    root.append(section(t('tools.duration'), [field('fps', fps), inF.node, outF.node, out]));
+  }
 
   // 2. Convertir fps
-  (function convertTool() {
+  function convertTool() {
     const from = fpsSelect(defaultFps);
     const to = fpsSelect(defaultFps === '29.97DF' ? '25' : '29.97DF');
     const out = el('div', { className: 'result' });
@@ -91,17 +92,17 @@
       const frames = TC.convertFrames(TC.parseTC(tc.input.value, from.value), from.value, to.value);
       out.append(
         el('div', { className: 'tc-big', textContent: TC.formatTC(frames, to.value) }),
-        el('div', { className: 'sub', textContent: frames + ' frames a ' + TC.FPS[to.value].label }),
+        el('div', { className: 'sub', textContent: t('tools.framesAt', { frames, fps: TC.FPS[to.value].label }) }),
       );
     };
     const tc = tcField('TC', () => from.value, recalc);
     from.addEventListener('change', recalc);
     to.addEventListener('change', recalc);
-    root.append(section('Convertir fps', [field('De', from), field('A', to), tc.node, out]));
-  })();
+    root.append(section(t('tools.convert'), [field(t('tools.from'), from), field(t('tools.to'), to), tc.node, out]));
+  }
 
   // 3. TC ↔ frames ↔ segundos
-  (function unitsTool() {
+  function unitsTool() {
     const fps = fpsSelect(defaultFps);
     const framesIn = el('input', { inputMode: 'numeric', autocomplete: 'off', placeholder: '0' });
     const secondsIn = el('input', { inputMode: 'decimal', autocomplete: 'off', placeholder: '0.000' });
@@ -146,8 +147,18 @@
       recalc();
     });
     fps.addEventListener('change', recalc);
-    root.append(section('TC ↔ frames ↔ segundos', [
-      field('fps', fps), tc.node, field('Frames', framesIn), field('Segundos', secondsIn),
+    root.append(section(t('tools.units'), [
+      field('fps', fps), tc.node, field(t('tools.frames'), framesIn), field(t('tools.seconds'), secondsIn),
     ]));
-  })();
+  }
+
+  function build() {
+    root.innerHTML = '';
+    durationTool();
+    convertTool();
+    unitsTool();
+  }
+
+  App.onLangChange(build);
+  build();
 })();

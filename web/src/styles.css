@@ -99,3 +99,28 @@ button.ghost { background: transparent; color: var(--muted); }
 .tool .result .tc-big { font-family: var(--mono); font-size: 24px; color: var(--accent); font-variant-numeric: tabular-nums; }
 .tool .result .sub { color: var(--muted); font-size: 12px; font-family: var(--mono); }
 .tool .result button { margin-top: 10px; }
+
+/* Cabecera: idioma y ayuda */
+.head-controls { display: flex; align-items: center; gap: 10px; }
+.head-controls select#lang { font-size: 12px; }
+.help-btn { width: 30px; height: 30px; padding: 0; border-radius: 50%; font-weight: 700; color: var(--accent); }
+
+/* Ayuda */
+.help {
+  width: min(720px, calc(100vw - 32px)); max-height: calc(100vh - 64px);
+  padding: 0; border: 1px solid var(--line); border-radius: 12px;
+  background: var(--panel); color: var(--text);
+}
+.help::backdrop { background: #000a; }
+.help-head {
+  position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.help-body { padding: 4px 20px 20px; line-height: 1.55; }
+.help-body h3 { font-size: 14px; color: var(--accent); margin: 18px 0 6px; }
+.help-body ul { margin: 0; padding-left: 18px; }
+.help-body li { margin: 4px 0; color: var(--text); }
+.help-body code {
+  font-family: var(--mono); font-size: 12.5px; background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; color: var(--accent);
+}

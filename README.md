@@ -2,6 +2,8 @@
 
 Calculadora de timecode SMPTE: cinta de sumas/restas multi-fps (incluido drop-frame 29.97/59.94), × y ÷, duración IN/OUT, conversión de fps y TC ↔ frames ↔ segundos.
 
+En español e inglés (detecta el idioma del sistema; selector en la cabecera). Ayuda integrada con el botón `?` o `F1`.
+
 ## Uso
 
 - **Web:** abre `web/index.html` en el navegador (no necesita servidor).
@@ -28,5 +30,6 @@ Los instaladores no están firmados: en macOS, la primera vez abre la app con cl
 
 - `web/src/timecode.js` — núcleo SMPTE (sin DOM, reutilizable)
 - `web/src/tape.js` — modelo de la cinta
+- `web/src/i18n.js` — traducciones (es, en) y textos de la ayuda; para añadir un idioma, copia un bloque de `DICTS` y añádelo a `LANGS`
 - `web/src/ui.js`, `web/src/tools.js` — interfaz
 - `src-tauri/` — app nativa Tauri
