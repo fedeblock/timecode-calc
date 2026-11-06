@@ -69,10 +69,13 @@
     }
   }
 
-  function openHelp() {
-    const d = $('#help');
+  function openModal(id) {
+    for (const d of document.querySelectorAll('dialog[open]')) if (d.id !== id) d.close();
+    const d = $('#' + id);
     if (!d.open) d.showModal();
   }
+  const openHelp = () => openModal('help');
+  const openSettings = () => openModal('settings');
 
   function load() {
     try { return T.deserializeTape(localStorage.getItem(STORAGE_KEY)); } catch (e) { return T.createTape(); }
@@ -254,9 +257,14 @@
     $('#lang').addEventListener('change', (e) => { setLang(e.target.value); $('#lang').focus(); });
     $('#help-open').addEventListener('click', openHelp);
     $('#help-close').addEventListener('click', () => $('#help').close());
-    $('#help').addEventListener('click', (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+    $('#settings-open').addEventListener('click', openSettings);
+    $('#settings-close').addEventListener('click', () => $('#settings').close());
+    for (const d of document.querySelectorAll('dialog')) {
+      d.addEventListener('click', (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+    }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'F1') { e.preventDefault(); openHelp(); }
+      else if (e.key === ',' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); openSettings(); }
     });
 
     applyStatic();

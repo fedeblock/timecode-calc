@@ -102,16 +102,20 @@ button.ghost { background: transparent; color: var(--muted); }
 
 /* Cabecera: idioma y ayuda */
 .head-controls { display: flex; align-items: center; gap: 10px; }
-.head-controls select#lang { font-size: 12px; }
-.help-btn { width: 30px; height: 30px; padding: 0; border-radius: 50%; font-weight: 700; color: var(--accent); }
+.icon-btn { width: 30px; height: 30px; padding: 0; border-radius: 50%; color: var(--muted); font-size: 15px; line-height: 1; }
+.help-btn { font-weight: 700; color: var(--accent); font-size: 14px; }
 
 /* Ayuda */
-.help {
+.modal {
   width: min(720px, calc(100vw - 32px)); max-height: calc(100vh - 64px);
   padding: 0; border: 1px solid var(--line); border-radius: 12px;
   background: var(--panel); color: var(--text);
 }
-.help::backdrop { background: #000a; }
+.modal::backdrop { background: #000a; }
+.settings { width: min(420px, calc(100vw - 32px)); }
+.settings-body { padding: 16px 20px 22px; }
+.pref { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; }
+.pref span { color: var(--text); }
 .help-head {
   position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between;
   padding: 14px 20px; background: var(--panel); border-bottom: 1px solid var(--line);

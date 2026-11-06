@@ -11,6 +11,7 @@
     es: {
       appTitle: 'Calculadora de timecode',
       lang: { label: 'Idioma', es: 'Español', en: 'English' },
+      settings: { button: 'Preferencias', title: 'Preferencias', close: 'Cerrar' },
       tape: {
         title: 'Cinta',
         fps: 'fps de la cinta',
@@ -102,7 +103,7 @@
             items: [
               '`Enter`: añadir la línea · `Esc`: limpiar la entrada.',
               '`Enter` o `F2` sobre una línea: editarla · `Esc`: cancelar.',
-              '`Tab`: moverse entre controles · `F1`: abrir esta ayuda.',
+              '`Tab`: moverse entre controles · `F1`: abrir esta ayuda · `⌘,` o `Ctrl+,`: preferencias (idioma).',
             ],
           },
         ],
@@ -111,6 +112,7 @@
     en: {
       appTitle: 'Timecode calculator',
       lang: { label: 'Language', es: 'Español', en: 'English' },
+      settings: { button: 'Settings', title: 'Settings', close: 'Close' },
       tape: {
         title: 'Tape',
         fps: 'Tape fps',
@@ -202,7 +204,7 @@
             items: [
               '`Enter`: add the line · `Esc`: clear the entry.',
               '`Enter` or `F2` on a line: edit it · `Esc`: cancel.',
-              '`Tab`: move between controls · `F1`: open this help.',
+              '`Tab`: move between controls · `F1`: open this help · `⌘,` or `Ctrl+,`: settings (language).',
             ],
           },
         ],
