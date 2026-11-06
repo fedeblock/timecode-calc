@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert');
-const Tape = require('../src/tape');
+const Tape = require('../web/src/tape');
 
 function build(fps, entries) {
   let t = Tape.createTape(fps);

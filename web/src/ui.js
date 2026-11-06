@@ -152,6 +152,13 @@
     $('#entry-preview').textContent = previewText($('#entry').value);
   }
 
+  /** Portapapeles nativo dentro de Tauri; API web en el navegador. */
+  function copyText(text) {
+    const tauriClip = globalThis.__TAURI__ && globalThis.__TAURI__.clipboardManager;
+    if (tauriClip) return tauriClip.writeText(text);
+    return navigator.clipboard.writeText(text);
+  }
+
   function toast(msg) {
     const t = $('#toast');
     t.textContent = msg;
@@ -185,7 +192,7 @@
 
     $('#copy').addEventListener('click', async () => {
       const text = T.computeTape(tape).totalTC;
-      try { await navigator.clipboard.writeText(text); toast('Copiado'); } catch (e) { toast('No se pudo copiar'); }
+      try { await copyText(text); toast('Copiado'); } catch (e) { toast('No se pudo copiar'); }
     });
     $('#clear').addEventListener('click', () => commit({ ...tape, lines: [] }, 'entry'));
 

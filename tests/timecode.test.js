@@ -2,7 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const fx = require('./fixtures.json');
-const TC = require('../src/timecode');
+const TC = require('../web/src/timecode');
 
 test('FPS_IDS en el orden acordado', () => {
   assert.deepStrictEqual(TC.FPS_IDS,

@@ -1,0 +1,15 @@
+{
+  "name": "timecode-calc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Calculadora de timecode SMPTE",
+  "scripts": {
+    "test": "node --test",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.4"
+  }
+}
