@@ -16,7 +16,8 @@ An SMPTE timecode calculator for video post-production.
 - **Desktop app (Tauri 2):**
   - `npm install` (once)
   - `npm run dev`: runs the app in development mode
-  - `npm run build`: builds the `.app` and `.dmg` into `src-tauri/target/release/bundle/`
+  - `npm run build`: builds the `.app` and `.dmg` for this Mac into `src-tauri/target/release/bundle/`
+  - `npm run build -- --target universal-apple-darwin`: universal build (Apple Silicon and Intel). Needs `rustup target add x86_64-apple-darwin aarch64-apple-darwin`
 
 Building the desktop app requires Rust and Node.js.
 
@@ -26,7 +27,7 @@ Run `npm test` (or `node --test`). Reference cases live in `tests/fixtures.json`
 
 ## Releases
 
-Pushing a `vX.Y.Z` tag makes GitHub Actions build installers for macOS (Apple Silicon and Intel), Windows and Linux, attached to a draft release:
+Pushing a `vX.Y.Z` tag makes GitHub Actions build installers for macOS (universal: Apple Silicon and Intel), Windows and Linux, attached to a draft release:
 
 ```
 git tag v0.1.0 && git push origin v0.1.0

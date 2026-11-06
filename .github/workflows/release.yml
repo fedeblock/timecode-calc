@@ -1,6 +1,6 @@
 name: Release
 
-# Crea una versión borrador con instaladores de macOS, Windows y Linux
+# Crea una versión borrador con instaladores de macOS (universal), Windows y Linux
 # al subir una etiqueta vX.Y.Z (p. ej. `git tag v0.1.0 && git push origin v0.1.0`).
 on:
   push:
@@ -17,9 +17,7 @@ jobs:
       matrix:
         include:
           - platform: macos-latest
-            args: --target aarch64-apple-darwin
-          - platform: macos-latest
-            args: --target x86_64-apple-darwin
+            args: --target universal-apple-darwin
           - platform: windows-latest
             args: ''
           - platform: ubuntu-22.04
