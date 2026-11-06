@@ -50,3 +50,12 @@ test('preferencias: título y etiqueta del idioma en ambos idiomas', () => {
   assert.strictEqual(I18n.t('es', 'lang.label'), 'Idioma');
   assert.strictEqual(I18n.t('en', 'lang.label'), 'Language');
 });
+
+test('la ayuda incluye licencia MIT, autoría y descargo en ambos idiomas', () => {
+  for (const lang of I18n.LANGS) {
+    const last = I18n.DICTS[lang].help.sections.at(-1);
+    const text = last.items.join(' ');
+    assert.match(text, /MIT/);
+    assert.match(text, /Federico Block/);
+  }
+});

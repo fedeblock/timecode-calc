@@ -43,8 +43,20 @@ The installers are not code-signed. On macOS, the first time you open the app, r
 - `web/src/ui.js`, `web/src/tools.js`: user interface.
 - `src-tauri/`: Tauri desktop app.
 
+## License
+
+MIT © 2026 Federico Block. See [LICENSE](LICENSE).
+
+You are free to use, copy, modify and distribute this software, including commercially, as long as you keep the copyright notice and credit the author.
+
+## Disclaimer
+
+This software is provided **"as is", without warranty of any kind**. The author accepts no liability for calculation errors, data loss or any other damage arising from its use. Always double-check results that matter.
+
 ---
 
 ## En español
 
 Calculadora de timecode SMPTE con una cinta de sumas y restas en varios frame rates (incluido drop-frame) y un panel de herramientas. La interfaz está en español e inglés. Para usarla, abre `web/index.html`, o compila la app de escritorio con `npm install` y `npm run build`.
+
+Licencia MIT © 2026 Federico Block: uso libre, incluso comercial, manteniendo el aviso de autoría. Se ofrece «tal cual», sin garantías; el autor no se hace responsable de errores ni daños derivados de su uso.

@@ -38,6 +38,9 @@
       "debugApplicationIdSuffix": ".debug"
     },
     "category": "Utility",
-    "shortDescription": "Calculadora de timecode SMPTE"
+    "shortDescription": "Calculadora de timecode SMPTE",
+    "copyright": "© 2026 Federico Block. MIT License.",
+    "license": "MIT",
+    "licenseFile": "../LICENSE"
   }
 }

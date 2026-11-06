@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "description": "Calculadora de timecode SMPTE",
+  "author": "Federico Block",
+  "license": "MIT",
   "scripts": {
     "test": "node --test",
     "dev": "tauri dev",
