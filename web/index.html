@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calculadora de timecode</title>
+  <title data-i18n="appTitle">Calculadora de timecode</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="src/styles.css">
 </head>
@@ -11,28 +11,32 @@
   <div class="app">
     <main id="tape" class="panel tape">
       <header class="tape-head">
-        <h1>Cinta</h1>
-        <label class="fps-pick">fps de la cinta
-          <select id="tape-fps"></select>
-        </label>
+        <h1 data-i18n="tape.title">Cinta</h1>
+        <div class="head-controls">
+          <label class="fps-pick"><span data-i18n="tape.fps">fps de la cinta</span>
+            <select id="tape-fps"></select>
+          </label>
+          <select id="lang" data-i18n-aria-label="lang.label" data-i18n-title="lang.label"></select>
+          <button id="help-open" type="button" class="help-btn" data-i18n-title="help.button" data-i18n-aria-label="help.button">?</button>
+        </div>
       </header>
 
-      <ol id="rows" class="rows" aria-label="Líneas de la cinta"></ol>
+      <ol id="rows" class="rows" data-i18n-aria-label="tape.rowsLabel"></ol>
 
       <div class="entry-wrap">
         <input id="entry" class="entry" autocomplete="off" spellcheck="false" inputmode="numeric"
-               placeholder="Teclea un TC (1000 = 10 s) · + − × ÷ al inicio para la operación"
-               aria-label="Nueva línea">
+               data-i18n-placeholder="tape.entryPlaceholder"
+               data-i18n-aria-label="tape.entryLabel">
         <div id="entry-preview" class="entry-preview tc" aria-live="polite"></div>
       </div>
 
       <footer class="total">
-        <div class="total-label">Total</div>
+        <div class="total-label" data-i18n="tape.total">Total</div>
         <div id="total-tc" class="total-tc tc">00:00:00:00</div>
         <div id="total-sub" class="total-sub tc">0 frames · 0.000 s</div>
         <div class="total-actions">
-          <button id="copy" type="button">Copiar</button>
-          <button id="clear" type="button" class="ghost">Vaciar cinta</button>
+          <button id="copy" type="button" data-i18n="tape.copy">Copiar</button>
+          <button id="clear" type="button" class="ghost" data-i18n="tape.clear">Vaciar cinta</button>
           <span id="toast" class="toast" role="status"></span>
         </div>
       </footer>
@@ -41,6 +45,15 @@
     <aside id="tools" class="tools"></aside>
   </div>
 
+  <dialog id="help" class="help" aria-labelledby="help-title">
+    <header class="help-head">
+      <h2 id="help-title" data-i18n="help.title">Ayuda</h2>
+      <button id="help-close" type="button" class="ghost" data-i18n="help.close">Cerrar</button>
+    </header>
+    <div id="help-body" class="help-body"></div>
+  </dialog>
+
+  <script src="src/i18n.js"></script>
   <script src="src/timecode.js"></script>
   <script src="src/tape.js"></script>
   <script src="src/ui.js"></script>

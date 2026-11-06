@@ -91,11 +91,11 @@
       } else {
         const factor = line.value === '' ? NaN : Number(line.value);
         row.display = (line.op === '*' ? '× ' : '÷ ') + line.value;
-        if (!Number.isFinite(factor)) row.error = 'Factor no válido';
-        else if (line.op === '/' && factor === 0) row.error = 'División por cero';
+        if (!Number.isFinite(factor)) row.error = 'badFactor';
+        else if (line.op === '/' && factor === 0) row.error = 'divByZero';
         else {
           const next = TC.signedRound(line.op === '*' ? running * factor : running / factor);
-          if (!Number.isFinite(next) || Math.abs(next) > Number.MAX_SAFE_INTEGER) row.error = 'Resultado fuera de rango';
+          if (!Number.isFinite(next) || Math.abs(next) > Number.MAX_SAFE_INTEGER) row.error = 'outOfRange';
           else running = next;
         }
         if (running === 0) running = 0; // evita -0

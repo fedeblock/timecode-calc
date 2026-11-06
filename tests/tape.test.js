@@ -62,10 +62,10 @@ test('multiplicar y dividir redondean al frame', () => {
 
 test('división por cero y factor no válido marcan error sin romper el total', () => {
   const r = Tape.computeTape(build('25', ['+1000', '/0']));
-  assert.strictEqual(r.rows[1].error, 'División por cero');
+  assert.strictEqual(r.rows[1].error, 'divByZero');
   assert.strictEqual(r.totalFrames, 250);
   const r2 = Tape.computeTape(build('25', ['+1000', { op: '*', value: 'abc' }]));
-  assert.strictEqual(r2.rows[1].error, 'Factor no válido');
+  assert.strictEqual(r2.rows[1].error, 'badFactor');
   assert.strictEqual(r2.totalFrames, 250);
 });
 
@@ -111,7 +111,7 @@ test('editar en línea conserva el decimal de un factor', () => {
 
 test('desbordamiento en × marca error y nunca da NaN', () => {
   const r = Tape.computeTape(build('25', ['+1', { op: '*', value: '1e300' }, { op: '*', value: '1e300' }, '*0', '+1000']));
-  assert.strictEqual(r.rows[1].error, 'Resultado fuera de rango');
+  assert.strictEqual(r.rows[1].error, 'outOfRange');
   assert.ok(Number.isFinite(r.totalFrames));
   assert.strictEqual(r.totalFrames, 250);
 });
